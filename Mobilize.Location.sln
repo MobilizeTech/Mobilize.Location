@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobilize.Location.Entities", "Mobilize.Location.Entities\Mobilize.Location.Entities.csproj", "{B8F91DC4-C3F9-4337-8E77-27037F5EEB83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobilize.Location.Helpers", "Mobilize.Location.Helpers\Mobilize.Location.Helpers.csproj", "{78BFF0F7-B817-4F82-A26F-519C7D2D2405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8F91DC4-C3F9-4337-8E77-27037F5EEB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F91DC4-C3F9-4337-8E77-27037F5EEB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F91DC4-C3F9-4337-8E77-27037F5EEB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F91DC4-C3F9-4337-8E77-27037F5EEB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78BFF0F7-B817-4F82-A26F-519C7D2D2405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BFF0F7-B817-4F82-A26F-519C7D2D2405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78BFF0F7-B817-4F82-A26F-519C7D2D2405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78BFF0F7-B817-4F82-A26F-519C7D2D2405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Mobilize.Common.Http;
 using Mobilize.Location.Entities;
 using NodaTime;
@@ -9,13 +10,13 @@ namespace Mobilize.Location.Helpers
     {
         private const string GoogleTimeZoneApiUrlFormat = "https://maps.googleapis.com/maps/api/timezone/json?location={0},{1}&timestamp={2}&key={3}";
 
-        public static DateTimeZone GetDateTimeZone(string apiKey, double latitude, double longitude)
+        public async static Task<DateTimeZone> GetDateTimeZone(string apiKey, double latitude, double longitude)
         {
             try
             {
                 long timestamp = GetTimestamp();
                 string url = string.Format(GoogleTimeZoneApiUrlFormat, latitude, longitude, timestamp, apiKey);
-                var response = RestClient.Get<GoogleTimeZoneApiResponse>(url);
+                var response = await RestClient.GetAsync<GoogleTimeZoneApiResponse>(url);
                 return DateTimeZoneProviders.Tzdb.GetZoneOrNull(response.TimeZoneId);
             }
             catch

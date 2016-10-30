@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Net.Http;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using Mobilize.Common.Http;
 using Mobilize.Location.Entities;
 using NodaTime;
 
@@ -10,42 +10,33 @@ namespace Mobilize.Location.Helpers
     {
         private const string SunriseSunsetApiUrlFormat = "http://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
 
-        private static JsonSerializerSettings UtcDateTimeZoneHandlingSettings
-        {
-            get
-            {
-                JsonSerializerSettings settings = new JsonSerializerSettings();
-                settings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                return settings;
-            }
-        }
-
-        public static Tuple<DateTime, DateTime> GetSunriseSunset(double latitude, double longitude, DateTimeZone dtz)
+        public async static Task<Tuple<DateTime, DateTime>> GetSunriseSunsetUtc(double latitude, double longitude)
         {
             try
             {
                 string url = string.Format(SunriseSunsetApiUrlFormat, latitude, longitude);
-                using (var client = new HttpClient())
-                {
-                    var result = client.GetAsync(url).Result;
-                    string json = result.Content.ReadAsStringAsync().Result;
-                    var response = JsonConvert.DeserializeObject<SunriseSunsetApiResponse>(json, UtcDateTimeZoneHandlingSettings);
-
-                    // Extract UTC sunrise/sunset
-                    var sunriseUtc = response.Results.Sunrise;
-                    var sunsetUtc = response.Results.Sunset;
-
-                    // Convert to location sunrise/sunset
-                    var sunriseLocation = TimeZoneHelper.ConvertUtcToLocation(dtz, sunriseUtc);
-                    var sunsetLocation = TimeZoneHelper.ConvertUtcToLocation(dtz, sunsetUtc);
-
-                    return new Tuple<DateTime, DateTime>(sunriseLocation, sunsetLocation);
-                }
+                var response = await RestClient.GetAsync<SunriseSunsetApiResponse>(url, null, UtcDateTimeZoneJsonSerializer.Settings);
+                return new Tuple<DateTime, DateTime>(response.Results.Sunrise, response.Results.Sunset);
             }
             catch
             {
                 return null;
             }
         }
+
+        public async static Task<Tuple<DateTime, DateTime>> GetSunriseSunsetTimeZone(double latitude, double longitude, DateTimeZone dtz)
+        {
+            try
+            {
+                var sunriseSunsetUtc = await GetSunriseSunsetUtc(latitude, longitude);
+                var locationSunrise = TimeZoneHelper.ConvertUtcToLocation(dtz, sunriseSunsetUtc.Item1);
+                var locationSunset = TimeZoneHelper.ConvertUtcToLocation(dtz, sunriseSunsetUtc.Item2);
+                return new Tuple<DateTime, DateTime>(locationSunrise, locationSunset);
+            }
+            catch
+            {
+                return null;
+            }
+        } 
     }
 }

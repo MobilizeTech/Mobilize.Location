@@ -12,12 +12,18 @@ namespace Mobilize.Location.Helpers
 
         public async static Task<DateTimeZone> GetDateTimeZone(string apiKey, double latitude, double longitude)
         {
+            var timeZoneId = await GetDateTimeZoneId(apiKey, latitude, longitude);
+            return DateTimeZoneProviders.Tzdb.GetZoneOrNull(timeZoneId);
+        }
+
+        public async static Task<string> GetDateTimeZoneId(string apiKey, double latitude, double longitude)
+        {
             try
             {
                 long timestamp = GetTimestamp();
                 string url = string.Format(GoogleTimeZoneApiUrlFormat, latitude, longitude, timestamp, apiKey);
                 var response = await RestClient.GetAsync<GoogleTimeZoneApiResponse>(url);
-                return DateTimeZoneProviders.Tzdb.GetZoneOrNull(response.TimeZoneId);
+                return response.TimeZoneId;
             }
             catch
             {

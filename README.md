@@ -1,7 +1,13 @@
 # Mobilize.Location
 Native mobile cross platform library of location helpers
 
-## Dependencies
+## Mobilize.Location.Entities
+https://www.nuget.org/packages/Mobilize.Location.Entities/
+
+## Mobilize.Location.Helpers
+https://www.nuget.org/packages/Mobilize.Location.Helpers/
+
+### Dependencies
 
 | Library    | Link          |
 |-------------|---------------|

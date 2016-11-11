@@ -46,7 +46,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Mobilize.Location.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mobilize.Location.Entities.1.0.0.1\lib\portable46-net451+win81\Mobilize.Location.Entities.dll</HintPath>
+      <HintPath>..\packages\Mobilize.Location.Entities.1.0.0.2\lib\portable46-net451+win81\Mobilize.Location.Entities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
